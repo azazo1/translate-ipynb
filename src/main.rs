@@ -2,9 +2,8 @@
 use std::{borrow::Cow, fs, path::PathBuf};
 
 use clap::Parser;
-use regex::{Captures, Regex, RegexBuilder};
+use regex::{Captures, RegexBuilder};
 use serde_json::Value;
-use tokio::task::JoinSet;
 use translate_ipynb::TranslateAgent;
 
 #[derive(Parser, Debug)]
