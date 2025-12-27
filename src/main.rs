@@ -11,10 +11,10 @@ use translate_ipynb::TranslateAgent;
 struct AppArgs {
     #[clap(short, long, help = "Input notebook path")]
     ipynb: PathBuf,
-    #[clap(short, long, default_value = "")]
-    api_key: String,
-    #[clap(short, long, default_value = "https://aihubmix.com/v1")]
-    base_url: String,
+    #[clap(short, long)]
+    api_key: Option<String>,
+    #[clap(short, long)]
+    base_url: Option<String>,
     #[clap(short, long, default_value = "gpt-4o-mini")]
     model: String,
     #[clap(
@@ -43,9 +43,20 @@ impl App {
         )?;
         // dbg!(&ipynb);
 
+        let api_key = self
+            .args
+            .api_key
+            .ok_or(())
+            .or_else(|_| std::env::var("OPENAI_API_KEY"))?;
+        let base_url = self
+            .args
+            .base_url
+            .ok_or(())
+            .or_else(|_| std::env::var("OPENAI_BASE_URL"))?;
+
         let agent = TranslateAgent::new(
-            &self.args.api_key,
-            &self.args.base_url,
+            &api_key,
+            &base_url,
             &self.args.model,
             &self.args.lang,
         )?;
