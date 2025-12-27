@@ -11,11 +11,7 @@ use translate_ipynb::TranslateAgent;
 struct AppArgs {
     #[clap(short, long, help = "Input notebook path")]
     ipynb: PathBuf,
-    #[clap(
-        short,
-        long,
-        default_value = "sk-DlhFc2IaClcNuIr498Ee7dA4Ed1f4a219377471e81165f6d"
-    )]
+    #[clap(short, long, default_value = "")]
     api_key: String,
     #[clap(short, long, default_value = "https://aihubmix.com/v1")]
     base_url: String,
